@@ -64,22 +64,41 @@ class SbbApplicationTests {
 		assertEquals("sbb가 무엇인가요?", q5.getSubject());
 		*/
 		
-	
+		/*
 		Optional<Question> oq6 = this.questionRepository.findById(1);
 		assertTrue(oq6.isPresent());
 		
 		Question q6 = oq6.get();
 		q6.setSubject("수정된 제목");
 		this.questionRepository.save(q6);
-	
+		*/
 		
+		/*
 		assertEquals(2, this.questionRepository.count());
 		Optional<Question> oq7 = this.questionRepository.findById(1);
 		assertTrue(oq7.isPresent());
 		Question q7 = oq7.get();
 		this.questionRepository.delete(q7);
 		assertEquals(1, this.questionRepository.count());
+		*/
 		
+		
+		Optional<Question> oq8 = this.questionRepository.findById(2);
+		assertTrue(oq8.isPresent());
+		Question q8 = oq8.get();
+		
+		Answer a1 = new Answer();
+		a1.setContent("네 자동으로 생성됩니다.");
+		a1.setQuestion(q8);
+		a1.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(a1);
+		
+		
+		Optional<Answer> oa9 = this.answerRepository.findById(1);
+		assertTrue(oa9.isPresent());
+	
+		Answer a9 = oa9.get();
+		assertEquals(2, a9.getQuestion().getId());
 		
 	}
 	
