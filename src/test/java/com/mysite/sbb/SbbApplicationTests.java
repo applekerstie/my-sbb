@@ -34,7 +34,8 @@ class SbbApplicationTests {
 		
 		this.questionRepository.save(q2);
 		*/
-			
+		
+		/*
 		List<Question> all = this.questionRepository.findAll();
 		assertEquals(2, all.size());
 		
@@ -47,6 +48,11 @@ class SbbApplicationTests {
 			Question q2 = oq.get();
 			assertEquals("sbb가 무엇인가요?", q2.getSubject());
 		}
+		*/
+		
+		Question q3 = this.questionRepository.findBySubject("sbb가 무엇인가요?");
+		assertEquals(1, q3.getId());
+		
 	}
 	
 	
