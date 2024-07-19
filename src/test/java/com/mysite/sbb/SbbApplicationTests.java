@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @SpringBootTest
 class SbbApplicationTests {
@@ -20,6 +22,7 @@ class SbbApplicationTests {
 	@Autowired
 	private AnswerRepository answerRepository;
 	
+	@Transactional
 	@Test
 	void testJpa() {
 		/*	
@@ -82,7 +85,7 @@ class SbbApplicationTests {
 		assertEquals(1, this.questionRepository.count());
 		*/
 		
-		
+		/*
 		Optional<Question> oq8 = this.questionRepository.findById(2);
 		assertTrue(oq8.isPresent());
 		Question q8 = oq8.get();
@@ -92,13 +95,23 @@ class SbbApplicationTests {
 		a1.setQuestion(q8);
 		a1.setCreateDate(LocalDateTime.now());
 		this.answerRepository.save(a1);
+		*/
 		
-		
+		/*
 		Optional<Answer> oa9 = this.answerRepository.findById(1);
 		assertTrue(oa9.isPresent());
 	
 		Answer a9 = oa9.get();
 		assertEquals(2, a9.getQuestion().getId());
+		*/
+		
+		Optional<Question> oq10 = this.questionRepository.findById(2);
+		assertTrue(oq10.isPresent());
+		Question q10 = oq10.get();
+		
+		List<Answer> aList10 = q10.getAnswerList();
+		assertEquals(1, aList10.size());
+		assertEquals("네 자동으로 생성됩니다.", aList10.get(0).getContent());
 		
 	}
 	
