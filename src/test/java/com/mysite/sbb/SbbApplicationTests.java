@@ -16,6 +16,7 @@ import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 
 
 @SpringBootTest
@@ -27,7 +28,10 @@ class SbbApplicationTests {
 	@Autowired
 	private AnswerRepository answerRepository;
 	
-	@Transactional
+	@Autowired
+	private QuestionService questionService;
+	
+	//@Transactional
 	@Test
 	void testJpa() {
 		/*	
@@ -110,6 +114,7 @@ class SbbApplicationTests {
 		assertEquals(2, a9.getQuestion().getId());
 		*/
 		
+		/*
 		Optional<Question> oq10 = this.questionRepository.findById(2);
 		assertTrue(oq10.isPresent());
 		Question q10 = oq10.get();
@@ -117,7 +122,13 @@ class SbbApplicationTests {
 		List<Answer> aList10 = q10.getAnswerList();
 		assertEquals(1, aList10.size());
 		assertEquals("네 자동으로 생성됩니다.", aList10.get(0).getContent());
+		*/
 		
+		for (int i=1; i <= 300; i++) {
+			String subject = String.format("테스트 데이터입니다:[%03d]", i);
+			String content = "내용 없음";
+			this.questionService.create(subject, content);
+		}
 	}
 	
 	
