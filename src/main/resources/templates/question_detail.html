@@ -22,6 +22,11 @@
         </div>
 
         <div class="my-3" sec:authorize="isAuthenticated()">
+            <a href="javascript:void(0);" th:onclick="'voteQuestion(' + ${question.id} + ')'" class="btn btn-sm btn-outline-secondary">
+                추천
+                <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+            </a>
+
             <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
             th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
             th:text="수정"></a>
@@ -33,9 +38,15 @@
 
         <script>
             function deleteQuestion(questionId) {
-                if( confirm('정말로 삭제하시겠습니까?') ){
+                if (confirm('정말로 삭제하시겠습니까?') ){
                     //alert(questionId);
                     location.href= "/question/delete/"+questionId;
+                }
+            }
+
+            function voteQuestion(questionId) {
+                if (confirm('해당 글을 추천하시겠습니까?')) {
+                    location.href="/question/vote/"+questionId;
                 }
             }
         </script>
@@ -57,6 +68,11 @@
                 </div>
 
                 <div class="my-3" sec:authorize="isAuthenticated()">
+                    <a href="javascript:void(0);" th:onclick="'voteAnswer(' + ${answer.id} + ')'" class="btn btn-sm btn-outline-secondary"
+                    >추천
+                        <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+                    </a>
+
                     <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                     th:if="${answer.author != null and #authentication.getPrincipal.getUsername == answer.author.username}"
                     th:text="수정"></a>
@@ -73,6 +89,12 @@
                 if( confirm("정말로 삭제하시겠습니까?") ){
                     //alert(answerId);
                     location.href="/answer/delete/"+answerId;
+                }
+            }
+
+            function voteAnswer(answerId) {
+                if (confirm('해당 댓글을 추천하시겠습니까?')){
+                    location.href="/answer/vote/"+answerId;
                 }
             }
         </script>
